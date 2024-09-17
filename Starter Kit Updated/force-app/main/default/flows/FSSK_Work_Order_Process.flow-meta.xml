@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <description>Migrated from the FSSK Work Order Process process using Check changes criteria.
+This Process Template is part of the Field Service Starter Kit package</description>
+    <isTemplate>true</isTemplate>
+    <label>FSSK Work Order Process</label>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>myRule_1_A1</targetReference>
+        </connector>
+        <filterFormula>{!$Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Set_Gantt_Label__c}
+&amp;&amp;
+(ISCHANGED({!$Record.AccountId})
+|| ISCHANGED({!$Record.WorkTypeId}))</filterFormula>
+        <object>WorkOrder</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>myRule_1_A1</name>
+        <label>Update Related Service Appointment Gantt Label</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <flowName>FSSK__FSK_Update_Work_Order_Child_Records</flowName>
+        <inputAssignments>
+            <name>RecordId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>

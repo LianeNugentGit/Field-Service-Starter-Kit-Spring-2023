@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <description>Migrated from the FSSK Assigned Resource Process process using Should Set Assigned Resource criteria.
+This Process Template is part of the Field Service Starter Kit package</description>
+    <isTemplate>true</isTemplate>
+    <label>FSSK Assigned Resource Process</label>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>myRule_1_A1</targetReference>
+        </connector>
+        <filterFormula>{!$Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Assign_Resource_On_Service_Appointment__c}
+&amp;&amp;
+(ISPICKVAL({!$Record.ServiceAppointment.StatusCategory}, &apos;Scheduled&apos;)
+
+|| ISPICKVAL({!$Record.ServiceAppointment.StatusCategory}, &apos;Dispatched&apos;))</filterFormula>
+        <object>AssignedResource</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>myRule_1_A1</name>
+        <label>Set Assigned Resource on Service Appointment</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <flowName>FSSK__FSK_Set_Assign_Service_Resource_On_Service_Appointment</flowName>
+        <inputAssignments>
+            <name>ServiceAppointmentId</name>
+            <value>
+                <elementReference>$Record.ServiceAppointmentId</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>

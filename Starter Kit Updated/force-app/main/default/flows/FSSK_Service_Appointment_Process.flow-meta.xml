@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <decisions>
+        <name>Is_Status_Triggers_Actual_End_Capturing</name>
+        <label>Is Status Triggers Actual End Capturing?</label>
+        <locationX>182</locationX>
+        <locationY>2351</locationY>
+        <defaultConnector>
+            <targetReference>Should_Reflect_Actual_End_on_Gantt</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Is Status Triggers Actual End Capturing?</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Is_Status_Triggers_Actual_End_Capturing</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_check_IsStatusTriggersActualEndCapturing</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Actual_End</targetReference>
+            </connector>
+            <label>TRUE_Is Status Triggers Actual End Capturing?</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Status_Triggers_Actual_Start_Capturing</name>
+        <label>Is Status Triggers Actual Start Capturing?</label>
+        <locationX>182</locationX>
+        <locationY>1679</locationY>
+        <defaultConnector>
+            <targetReference>Should_Reflect_Actual_Start_on_Gantt</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Is Status Triggers Actual Start Capturing?</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Is_Status_Triggers_Actual_Start_Capturing</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_check_IsStatusTriggersActualTimes</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Actual_Start</targetReference>
+            </connector>
+            <label>TRUE_Is Status Triggers Actual Start Capturing?</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Unscheduled_OR_Canceled</name>
+        <label>Is Unscheduled OR Canceled</label>
+        <locationX>182</locationX>
+        <locationY>3359</locationY>
+        <defaultConnectorLabel>FALSE_Is Unscheduled OR Canceled</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Is_Unscheduled_OR_Canceled</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_check_IsUnscheduledORCanceled</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Revoke_Starter_Kit_Values</targetReference>
+            </connector>
+            <label>TRUE_Is Unscheduled OR Canceled</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Populate_WO_Lookup</name>
+        <label>Populate WO Lookup</label>
+        <locationX>182</locationX>
+        <locationY>335</locationY>
+        <defaultConnector>
+            <targetReference>Should_Set_Gantt_Label</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Populate WO Lookup</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Populate_WO_Lookup</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_check_PopulateWorkOrder</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Populate_Work_Order_Lookup</targetReference>
+            </connector>
+            <label>TRUE_Populate WO Lookup</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>SA_Rejection</name>
+        <label>SA Rejection</label>
+        <locationX>182</locationX>
+        <locationY>1007</locationY>
+        <defaultConnector>
+            <targetReference>Service_Appointment_Dispatched</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Rejection</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Rejection</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_check_ExcludeSRonSARejection</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Exclude_Assigned_Resource</targetReference>
+            </connector>
+            <label>TRUE_Rejection</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Service_Appointment_Dispatched</name>
+        <label>Service Appointment Dispatched?</label>
+        <locationX>182</locationX>
+        <locationY>1343</locationY>
+        <defaultConnector>
+            <targetReference>Is_Status_Triggers_Actual_Start_Capturing</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Service Appointment Dispatched?</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Service_Appointment_Dispatched</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_CheckSADispatched_Notificaton</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Send_Custom_Notification</targetReference>
+            </connector>
+            <label>TRUE_Service Appointment Dispatched?</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Should_Add_Asset_to_Maintenance_Plan</name>
+        <label>Should Add Asset to Maintenance Plan</label>
+        <locationX>182</locationX>
+        <locationY>3023</locationY>
+        <defaultConnector>
+            <targetReference>Is_Unscheduled_OR_Canceled</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Should Add Asset to Maintenance Plan</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Should_Add_Asset_to_Maintenance_Plan</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_Check_ShouldAddAssettoMaintenancePlan</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Asset_to_Maintenance_Plan</targetReference>
+            </connector>
+            <label>TRUE_Should Add Asset to Maintenance Plan</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Should_Reflect_Actual_End_on_Gantt</name>
+        <label>Should Reflect Actual End on Gantt</label>
+        <locationX>182</locationX>
+        <locationY>2687</locationY>
+        <defaultConnector>
+            <targetReference>Should_Add_Asset_to_Maintenance_Plan</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Should Reflect Actual End on Gantt</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Should_Reflect_Actual_End_on_Gantt</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_check_ShouldReflectActualEndonGantt</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Reflect_Actual_End_on_Gantt</targetReference>
+            </connector>
+            <label>TRUE_Should Reflect Actual End on Gantt</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Should_Reflect_Actual_Start_on_Gantt</name>
+        <label>Should Reflect Actual Start on Gantt</label>
+        <locationX>182</locationX>
+        <locationY>2015</locationY>
+        <defaultConnector>
+            <targetReference>Is_Status_Triggers_Actual_End_Capturing</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Should Reflect Actual Start on Gantt</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_myRule_13</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_check_ShouldReflectActualStartonGantt</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Reflect_Actual_Start_on_Gantt</targetReference>
+            </connector>
+            <label>TRUE_Should Reflect Actual Start on Gantt</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Should_Set_Gantt_Label</name>
+        <label>Should Set Gantt Label</label>
+        <locationX>182</locationX>
+        <locationY>671</locationY>
+        <defaultConnector>
+            <targetReference>SA_Rejection</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>FALSE_Should Set Gantt Label</defaultConnectorLabel>
+        <rules>
+            <name>TRUE_Should_Set_Gantt_Label</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>formula_check_ShouldSetGanttLabel</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Gantt_Label</targetReference>
+            </connector>
+            <label>TRUE_Should Set Gantt Label</label>
+        </rules>
+    </decisions>
+    <description>Migrated from the FSSK Service Appointment Process process using multiple criteria.
+This Process Template is part of the Field Service Starter Kit package</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>formula_check_CustomNotificationTypeID</name>
+        <dataType>String</dataType>
+        <expression>{!$Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Custom_Notification_Type_Id__c}</expression>
+    </formulas>
+    <formulas>
+        <name>formula_check_ExcludeSRonSARejection</name>
+        <dataType>Boolean</dataType>
+        <expression>{!$Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Excluded_SR_on_SA_Rejection__c} 
+&amp;&amp;
+NOT(ISNEW())
+&amp;&amp;
+{!$Record.FSSK__FSK_Reject_Service_Appointment__c}
+&amp;&amp;
+(BEGINS({!$Record.ParentRecordId}, &apos;0WO&apos;)
+|| BEGINS({!$Record.ParentRecordId}, &apos;1WL&apos;))</expression>
+    </formulas>
+    <formulas>
+        <name>formula_check_IsStatusTriggersActualEndCapturing</name>
+        <dataType>Boolean</dataType>
+        <expression>$Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__ActualTimes__c
+&amp;&amp;
+ISCHANGED({!$Record.Status})
+&amp;&amp;
+NOT(ISBLANK({!$Record.SchedEndTime}))
+&amp;&amp;
+CONTAINS($Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__EndingStatus__c , TEXT({!$Record.Status}))</expression>
+    </formulas>
+    <formulas>
+        <name>formula_check_IsStatusTriggersActualTimes</name>
+        <dataType>Boolean</dataType>
+        <expression>$Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__ActualTimes__c 
+&amp;&amp;
+ISCHANGED({!$Record.Status})
+&amp;&amp;
+NOT(ISBLANK(TEXT({!$Record.Status})))
+&amp;&amp;
+NOT(ISBLANK({!$Record.SchedStartTime}))
+&amp;&amp;
+(CONTAINS($Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__StartingStatus__c, TEXT({!$Record.Status})))</expression>
+    </formulas>
+    <formulas>
+        <name>formula_check_IsUnscheduledORCanceled</name>
+        <dataType>Boolean</dataType>
+        <expression>ISCHANGED({!$Record.Status})
+&amp;&amp;
+(TEXT({!$Record.StatusCategory}) = &apos;Canceled&apos;
+|| ((PRIORVALUE({!$Record.Status}) != &apos;None&apos;)
+&amp;&amp;
+TEXT({!$Record.StatusCategory}) = &apos;None&apos;))</expression>
+    </formulas>
+    <formulas>
+        <name>formula_check_MobileEndTimeChanged</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(ISCHANGED({!$Record.FSSK__FSK_Mobile_End_Time__c }), true, false)</expression>
+    </formulas>
+    <formulas>
+        <name>formula_check_MobileStartTimeischanged</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(ISCHANGED({!$Record.FSSK__FSK_Mobile_Start_Time__c}), true, false)</expression>
+    </formulas>
+    <formulas>
+        <name>formula_check_PopulateWorkOrder</name>
+        <dataType>Boolean</dataType>
+        <expression>$Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Populate_Work_Order_Lookup__c 
+&amp;&amp;
+ISNEW()
+&amp;&amp;
+BEGINS({!$Record.ParentRecordId}, &apos;0WO&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>formula_Check_ShouldAddAssettoMaintenancePlan</name>
+        <dataType>Boolean</dataType>
+        <expression>{!$Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Add_Asset_to_Maintenance_Plan__c}
+&amp;&amp;  {!$Record.FSSK__FSK_Add_Asset_to_Maintenance_Plan__c} 
+&amp;&amp; ({!$Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Successful_Asset_Installation_Status__c}  == TEXT({!$Record.Status}))</expression>
+    </formulas>
+    <formulas>
+        <name>formula_check_ShouldReflectActualEndonGantt</name>
+        <dataType>Boolean</dataType>
+        <expression>ISCHANGED({!$Record.Status})
+&amp;&amp;
+NOT(ISBLANK({!$Record.SchedEndTime}))
+&amp;&amp;
+CONTAINS($Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__EndingStatus__c , TEXT({!$Record.Status}))
+&amp;&amp;
+$Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Actual_Times_on_Gantt__c</expression>
+    </formulas>
+    <formulas>
+        <name>formula_check_ShouldReflectActualStartonGantt</name>
+        <dataType>Boolean</dataType>
+        <expression>($Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Actual_Times_on_Gantt__c
+&amp;&amp;
+CONTAINS($Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__StartingStatus__c, TEXT({!$Record.Status})))
+&amp;&amp;
+ISCHANGED({!$Record.Status})
+&amp;&amp;
+NOT(ISBLANK({!$Record.SchedStartTime }))</expression>
+    </formulas>
+    <formulas>
+        <name>formula_check_ShouldSetGanttLabel</name>
+        <dataType>Boolean</dataType>
+        <expression>{!$Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Set_Gantt_Label__c}
+&amp;&amp;
+ISNEW()</expression>
+    </formulas>
+    <formulas>
+        <name>formula_CheckSADispatched_Notificaton</name>
+        <dataType>Boolean</dataType>
+        <expression>$Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Mobile_Canned_Custom_Notification__c
+&amp;&amp;
+($Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Dispatched_Notification__c
+|| $Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Emergency_Dispatched_Notification__c)
+&amp;&amp;
+ISCHANGED({!$Record.Status})
+&amp;&amp;
+TEXT({!$Record.StatusCategory}) = &apos;Dispatched&apos;
+&amp;&amp;
+({!$Record.SchedStartTime &lt; 
+(NOW(})+($Setup.FSSK__FSK_FSL_Starter_Kit__c.FSSK__Hours_for_Dispatched_Notification__c /24) ))</expression>
+    </formulas>
+    <isTemplate>true</isTemplate>
+    <label>FSSK Service Appointment Process</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>If this doesn&apos;t work, we will have to refer to this article https://issues.salesforce.com/issue/a028c00000qPzshAAC/modifying-and-updating-the-record-global-variable-to-a-blank-value-null-in-an-after-trigger-flow-does-not-update-the-record-in-the-database</description>
+        <name>Revoke_Starter_Kit_Values</name>
+        <label>Revoke Starter Kit Values</label>
+        <locationX>50</locationX>
+        <locationY>3479</locationY>
+        <inputAssignments>
+            <field>ActualDuration</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ActualEndTime</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ActualStartTime</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FSSK__FSK_Assigned_Service_Resource__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FSSK__FSK_Mobile_End_Time__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FSSK__FSK_Mobile_Start_Time__c</field>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Populate_WO_Lookup</targetReference>
+        </connector>
+        <object>ServiceAppointment</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>Add_Asset_to_Maintenance_Plan</name>
+        <label>Add Asset to Maintenance Plan</label>
+        <locationX>50</locationX>
+        <locationY>3143</locationY>
+        <connector>
+            <targetReference>Is_Unscheduled_OR_Canceled</targetReference>
+        </connector>
+        <flowName>FSSK__Add_Asset_to_Maintenance_Plan</flowName>
+        <inputAssignments>
+            <name>Parent_Record_Id</name>
+            <value>
+                <elementReference>$Record.ParentRecordId</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Exclude_Assigned_Resource</name>
+        <label>Exclude Assigned Resource</label>
+        <locationX>50</locationX>
+        <locationY>1127</locationY>
+        <connector>
+            <targetReference>Service_Appointment_Dispatched</targetReference>
+        </connector>
+        <flowName>FSSK__FSK_Exclude_Resource_On_Rejection</flowName>
+        <inputAssignments>
+            <name>Service_Appointment_Id</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Service_Appointment_Parent_Id</name>
+            <value>
+                <elementReference>$Record.ParentRecordId</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Populate_Work_Order_Lookup</name>
+        <label>Populate Work Order Lookup</label>
+        <locationX>50</locationX>
+        <locationY>455</locationY>
+        <connector>
+            <targetReference>Should_Set_Gantt_Label</targetReference>
+        </connector>
+        <flowName>FSSK__FSK_Populate_Custom_Work_Order_Lookup</flowName>
+        <inputAssignments>
+            <name>RecordId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Reflect_Actual_End_on_Gantt</name>
+        <label>Reflect Actual End on Gantt</label>
+        <locationX>50</locationX>
+        <locationY>2807</locationY>
+        <connector>
+            <targetReference>Should_Add_Asset_to_Maintenance_Plan</targetReference>
+        </connector>
+        <flowName>FSSK__FSK_Reflect_Actual_Times_on_Gantt</flowName>
+        <inputAssignments>
+            <name>IsStart</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>MobileTimes</name>
+            <value>
+                <elementReference>formula_check_MobileEndTimeChanged</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>RecordId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Reflect_Actual_Start_on_Gantt</name>
+        <label>Reflect Actual Start on Gantt</label>
+        <locationX>50</locationX>
+        <locationY>2135</locationY>
+        <connector>
+            <targetReference>Is_Status_Triggers_Actual_End_Capturing</targetReference>
+        </connector>
+        <flowName>FSSK__FSK_Reflect_Actual_Times_on_Gantt</flowName>
+        <inputAssignments>
+            <name>IsStart</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>MobileTimes</name>
+            <value>
+                <elementReference>formula_check_MobileStartTimeischanged</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>RecordId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Send_Custom_Notification</name>
+        <label>Send Custom Notification</label>
+        <locationX>50</locationX>
+        <locationY>1463</locationY>
+        <connector>
+            <targetReference>Is_Status_Triggers_Actual_Start_Capturing</targetReference>
+        </connector>
+        <flowName>FSSK__FSK_Canned_Notification_Dispatched</flowName>
+        <inputAssignments>
+            <name>IsEmergency</name>
+            <value>
+                <elementReference>$Record.FSL__Emergency__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Notification_Type_Id</name>
+            <value>
+                <elementReference>formula_check_CustomNotificationTypeID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Service_Appointment_Id</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Service_Appointment_Number</name>
+            <value>
+                <elementReference>$Record.AppointmentNumber</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>Service_Appointment_Subject</name>
+            <value>
+                <elementReference>$Record.Subject</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Set_Actual_End</name>
+        <label>Set Actual End</label>
+        <locationX>50</locationX>
+        <locationY>2471</locationY>
+        <connector>
+            <targetReference>Should_Reflect_Actual_End_on_Gantt</targetReference>
+        </connector>
+        <flowName>FSSK__FSK_Actual_Times_Capturing</flowName>
+        <inputAssignments>
+            <name>IsStart</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>MobileTimes</name>
+            <value>
+                <elementReference>formula_check_MobileEndTimeChanged</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>RecordId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Set_Actual_Start</name>
+        <label>Set Actual Start</label>
+        <locationX>50</locationX>
+        <locationY>1799</locationY>
+        <connector>
+            <targetReference>Should_Reflect_Actual_Start_on_Gantt</targetReference>
+        </connector>
+        <flowName>FSSK__FSK_Actual_Times_Capturing</flowName>
+        <inputAssignments>
+            <name>IsStart</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>MobileTimes</name>
+            <value>
+                <elementReference>formula_check_MobileStartTimeischanged</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>RecordId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Set_Gantt_Label</name>
+        <label>Set Gantt Label</label>
+        <locationX>50</locationX>
+        <locationY>791</locationY>
+        <connector>
+            <targetReference>SA_Rejection</targetReference>
+        </connector>
+        <flowName>FSSK__FSK_Set_Gantt_Label_Concatenation</flowName>
+        <inputAssignments>
+            <name>RecordId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>
